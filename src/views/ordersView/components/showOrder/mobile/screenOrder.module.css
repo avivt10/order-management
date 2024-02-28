@@ -1,0 +1,14 @@
+.containerScreenOrder{
+display: none;
+}
+
+@media (max-width: 800px) {
+  .containerScreenOrder{
+    display: block;
+    background-color: #a7a7a7;
+    position: absolute;
+    bottom: 250px;
+    margin: auto;
+    box-shadow: 10px 5px 5px rgb(0, 0, 0);
+}
+}
