@@ -3,9 +3,11 @@ import NavBar from "./navBar/navBar";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="flex flex-col">
       <NavBar />
+      <>
       <OrderView />
+      </>
     </div>
   );
 };
