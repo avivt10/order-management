@@ -1,0 +1,38 @@
+.iconClickTable{
+  color: rgb(153, 153, 153);
+}
+
+.trBodyStyle{
+  border: 1px solid rgb(196, 196, 196);
+}
+
+td{
+  padding: 25px;
+}
+
+th{
+  color: rgb(196, 196, 196);
+}
+
+.checkboxStyle{
+  width: 25px;
+  height: 18px;
+}
+
+.wrapperOrdersMobile{
+  display: none;
+}
+
+@media (max-width: 800px) {
+  table {
+    display: none; 
+  }
+
+  .wrapperOrdersMobile{
+    display: block;
+  }
+  
+  .styleTextGray{
+    color: rgb(179, 179, 179);
+  }
+}

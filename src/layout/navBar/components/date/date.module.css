@@ -1,0 +1,14 @@
+.dateContainer{
+  width: calc(300px);
+
+}
+
+.ps-10{
+  padding-inline-start:0 !important;
+}
+
+@media only screen and (max-width: 800px) {
+  .dateContainer {
+    display:none;
+  }
+}

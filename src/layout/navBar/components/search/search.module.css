@@ -1,0 +1,22 @@
+.searchContainerDesktop{
+  width: calc(300px);
+}
+
+.searchContainerMobile{
+  display: none;
+}
+.iconSearch{
+  color:#cacdcd;
+}
+
+::placeholder {
+  position: absolute;
+  left: 180px;
+  background-color: white;
+}
+ 
+@media only screen and (max-width: 800px) {
+  .searchContainerDesktop {
+    display:none;
+  }
+} 
