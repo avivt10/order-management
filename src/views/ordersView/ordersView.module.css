@@ -1,38 +1,31 @@
-.iconClickTable{
+.iconClickTable {
   color: rgb(153, 153, 153);
 }
+.styleTextGray {
+  color: rgb(179, 179, 179);
+}
 
-.trBodyStyle{
+.trBodyStyle {
   border: 1px solid rgb(196, 196, 196);
 }
 
-td{
+td {
   padding: 25px;
 }
 
-th{
+th {
   color: rgb(196, 196, 196);
 }
 
-.checkboxStyle{
+.checkboxStyle {
   width: 25px;
   height: 18px;
 }
 
-.wrapperOrdersMobile{
-  display: none;
-}
-
-@media (max-width: 800px) {
-  table {
-    display: none; 
-  }
-
-  .wrapperOrdersMobile{
-    display: block;
-  }
-  
-  .styleTextGray{
-    color: rgb(179, 179, 179);
-  }
+.containerAddOrderCard {
+  background-color: aqua;
+  height: 800px;
+  width: 1000px;
+  left: 200px;
+  position: absolute;
 }
