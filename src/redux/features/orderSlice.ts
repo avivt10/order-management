@@ -37,14 +37,22 @@ const orderSlice = createSlice({
     onChangeCurrentOrder: (state, action: PayloadAction<orderModel>) => {
       state.currentOrder = action.payload.currentOrder;
     },
+    onRemoveCurrentOrder: (state) => {
+      state.currentOrder = { ...initialState.currentOrder };
+    },
     setIsActiveTrue: (state) => {
       state.isActive = true;
     },
     setIsActiveFalse: (state) => {
       state.isActive = false;
-    }
+    },
   },
 });
 
-export const { onChangeCurrentOrder, setIsActiveTrue, setIsActiveFalse } = orderSlice.actions;
+export const {
+  onChangeCurrentOrder,
+  setIsActiveTrue,
+  setIsActiveFalse,
+  onRemoveCurrentOrder,
+} = orderSlice.actions;
 export default orderSlice.reducer;

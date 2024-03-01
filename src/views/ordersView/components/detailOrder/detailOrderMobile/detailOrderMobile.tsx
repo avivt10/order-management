@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { onRemoveCurrentOrder } from "../../../../../redux/features/orderSlice";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
-import { onChangeCurrentOrder } from "../../../../../redux/features/orderSlice";
-import { OrderInterface } from "../../../interface/order";
 
 const DetailOrderMobile = () => {
   const { currentOrder } = useAppSelector(state => state.orderSlice)
   const dispatch = useAppDispatch();
+
+  const resetCurrentOrder = () => {
+    dispatch(onRemoveCurrentOrder())
+  }
 
   const priority = [
     {
@@ -22,75 +24,70 @@ const DetailOrderMobile = () => {
     },
   ]
 
-  const resetCurrentOrder = () => {
-    if (currentOrder) {
-      dispatch(onChangeCurrentOrder({ currentOrder: {} as OrderInterface }));
-    }
-  }
-
   const randomIndex = Math.floor(Math.random() * priority.length);
   const randomItem = priority[randomIndex];
 
   return (
-    <div className="flex justify-center flex-col items-center absolute bottom-0 left-0 w-full h-fullHight border border-gray-300 bg-gray-50 rounded-lg">
-      <button className={`mb-28 flex bg-green-500`} onClick={() => resetCurrentOrder()}>
-        <svg className="text-white" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
+    <div className="flex justify-center flex-col p-8 absolute bottom-0 left-0 w-full h-fullHight border border-gray-300 bg-gray-50 rounded-lg">
+      <button className={`flex text-zinc-500`} onClick={() => resetCurrentOrder()}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
         </svg>
       </button>
-      <div className="mb-5 flex justify-between gap-20">
-        <p>פרטי הזמנה</p>
-        <p className="font-bold">{currentOrder.date && new Date(currentOrder.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric', year: 'numeric' }).replace(/\./g, '/')} </p>
+      <header className="h-10 mb-10">
+        <p className="font-bold text-right mt-5 text-3xl">{currentOrder.customer}</p>
+      </header>
 
-      </div>
-      <div className="mb-5 flex justify-between gap-20">
+      <div className="mb-2 flex justify-between p-2">
         <p>פרטי הזמנה</p>
-        <p className="font-bold">{currentOrder.customer} </p>
-
+        <p className="font-bold">{currentOrder.date} </p>
       </div>
 
-      <div className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
+        <p>סטטוס</p>
+        <p className="font-bold">{currentOrder.status} </p>
+      </div>
+
+      <div className="mb-2 flex justify-between p-2">
         <p>תאריך אספקה</p>
-        <p className="font-bold">{currentOrder.date && new Date(currentOrder.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric', year: 'numeric' }).replace(/\./g, '/')} </p>
+        <p className="font-bold">{currentOrder.date} </p>
       </div>
 
-      <div className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
         <p>דחיפות</p>
-        <div className="flex">
+        <div className="flex  gap-1">
           <div className="w-4 h-4 mt-1.5 rounded-2xl " style={{ background: randomItem.color }} />
-          <p className={`font-bold item-center`} >{randomItem.val}</p>
+          <p className="font-bold item-center" >{randomItem.val}</p>
         </div>
       </div>
-      <div className="mb-5 flex justify-between w-60">
-        <p className={`font-bold item-center`} >{currentOrder.branch}</p>
+      <div className="mb-2 flex justify-between p-2">
         <p>סניף</p>
+        <p className="font-bold item-center" >{currentOrder.branch}</p>
       </div>
-      <div className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
         <p>סוג הזמנה </p>
         <p className={`font-bold item-center`} >{currentOrder.order_type || "אין"} </p>
       </div>
-      <div className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
         <p>מקור ההזמנה</p>
         <p className={`font-bold item-center`} >{currentOrder.source}</p>
       </div>
-      <div className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
         <p>תאריך יצירה</p>
-        <p className={`font-bold item-center`} >    {currentOrder?.created_at ? currentOrder?.created_at.split(" ")[0] : ""}
+        <p className="font-bold item-center">    {currentOrder?.created_at ? currentOrder?.created_at.split(" ")[0] : ""}
         </p>
       </div>
-      <div className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
         <p>שעת יצירה</p>
-        <p className={`font-bold item-center`} >
+        <p className="font-bold item-center">
           {currentOrder.time || "אין"}
         </p>
       </div>
-      <div dir="rtl" className="mb-5 flex justify-between w-60">
+      <div className="mb-2 flex justify-between p-2">
         <p>הערות</p>
-        <p className={`font-bold item-center w-1/3`} >{currentOrder.notes || "אם יש הרבה אז הגובה ישתנה בהתאם"}</p>
+        <p className="font-bold item-center">{currentOrder.notes || "אם יש הרבה אז הגובה ישתנה בהתאם"}</p>
       </div>
-    </div >
+    </div>
   );
 };
 

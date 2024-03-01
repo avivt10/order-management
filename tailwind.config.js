@@ -6,13 +6,9 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        'aviv-colors': '#00FF00',
-        'gray-custom': '#eeeeeee'
+      height: {
+        'fullHight': '100%'
       },
-      height:{
-        'fullHight':'100%'
-      }
     },
 
   },

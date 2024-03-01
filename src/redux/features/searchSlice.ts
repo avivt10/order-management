@@ -16,7 +16,6 @@ const searchSlice = createSlice({
     onChangeSearch: (state, action: PayloadAction<searchModel>) => {
       state.text = action.payload.text;
     },
-
   },
 });
 

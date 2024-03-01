@@ -1,6 +1,5 @@
-import Search from "../../../../../layout/navBar/components/search";
+import Search from "../../../../../shared/components/search";
 import { useAppSelector } from "../../../../../redux/hooks";
-import style from "./detailOrderDesktop.module.css"
 
 const DetailOrderDesktop = () => {
   const { currentOrder } = useAppSelector(state => state.orderSlice)
@@ -21,15 +20,14 @@ const DetailOrderDesktop = () => {
 
   const randomIndex = Math.floor(Math.random() * priority.length);
   const randomItem = priority[randomIndex];
-
   //details order desktop
   return (
-    <div className="flex flex-col items-start p-4 ml-4 w-4/5 border border-gray-300 bg-gray-50 rounded-lg mr-6">
+    <div className="flex flex-col items-start p-10 ml-4 w-4/5 border border-gray-300 bg-gray-50 rounded-lg mr-6">
       {/* header  */}
       <div className="flex flex-row-reverse justify-between">
         <div className="flex gap-10">
+          <p className="font-bold text-lg truncate">{currentOrder?.customer} </p>
           <p className="text-blue-500">{currentOrder?.status}</p>
-          <p className={`${style.nameOrder} font-bold text-lg truncate`}>{currentOrder?.customer} </p>
         </div>
         <button className="flex gap-3 absolute left-20">
           הזמנה חוזרת
@@ -39,14 +37,14 @@ const DetailOrderDesktop = () => {
         </button>
       </div>
 
-      <div className="mb-3 mt-5">
+      <div className="mb-3 mt-5 w-52">
         <Search />
       </div>
 
-      <div className="p-5 flex flex-col ">
-        <div className="mb-5 flex justify-between gap-20">
+      <div className="p-5 flex flex-col">
+        <div className="mb-5 flex justify-between gap-11">
           <p>תאריך אספקה</p>
-          <p className="font-bold">{currentOrder?.date && new Date(currentOrder?.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric', year: 'numeric' }).replace(/\./g, '/')} </p>
+          <p className="font-bold">{currentOrder?.date}</p>
         </div>
 
         <div className="mb-5 flex justify-between">
@@ -77,7 +75,7 @@ const DetailOrderDesktop = () => {
           <p>שעת יצירה</p>
           <p className={`font-bold item-center`} >{currentOrder?.time || "אין"}</p>
         </div>
-        <div dir="rtl" className="mb-5 flex justify-between">
+        <div className="mb-5 flex justify-between">
           <p>הערות</p>
           <p className={`font-bold item-center w-1/3`} >{currentOrder?.notes || "אם יש הרבה אז הגובה ישתנה בהתאם"}</p>
         </div>

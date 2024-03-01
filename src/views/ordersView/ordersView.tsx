@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { setListOrders } from "../../redux/features/listOrdersSlice";
 import { onChangeCurrentOrder, setIsActiveTrue } from "../../redux/features/orderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -10,40 +10,55 @@ import ShowOrderDesktop from "./components/showOrder/desktop/showOrderDesktop";
 import ShowOrderMobile from "./components/showOrder/mobile/showOrderMobile";
 
 const OrderView = () => {
-  const [arrayOrders, setArrayOrders] = useState<OrderInterface[]>();
   const dispatch = useAppDispatch();
   const { isActive } = useAppSelector(state => state.orderSlice);
   const { listOrders } = useAppSelector(state => state.listOrdersSlice);
+  const { text } = useAppSelector((state) => state.searchSlice)
+  const [filteredOrders, setFilteredOrders] = useState<OrderInterface[]>();
+  useEffect(() => {
+    filterFunction()
+  }, [text])
+
+  const filterFunction = () => {
+    if (text !== "") {
+      const filtered = text ? listOrders.filter((item) => item.customer.toLowerCase().includes(text.toLowerCase())) : listOrders;
+      setFilteredOrders(filtered);
+    }
+    else {
+      setFilteredOrders(listOrders)
+    }
+  };
 
   useEffect(() => {
-    fetch();
-  }, []);
+    if (listOrders.length === 0) {
+      fetch();
+      setFilteredOrders(listOrders)
+    }
+    setFilteredOrders(listOrders)
+  }, [listOrders.length]);
 
   const fetch = async () => {
     try {
-      const { data: { orders } } = await axios.get("http://localhost:3000/api/getOrdersList");
-      setArrayOrders(orders);
-      dispatch(setListOrders({ listOrders: orders }));
+      const { data } = await axios.get("http://localhost:3000/api/orders/getOrders");
+      dispatch(setListOrders({ listOrders: data.arrayOrders }));
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleOrderClick = (id: number) => {
-    const getOrder = listOrders?.find((item) => item.id === id);
-    if(getOrder){
-      dispatch(onChangeCurrentOrder({ currentOrder: getOrder }));
-      dispatch(setIsActiveTrue())
-    }
+    const getOrder: OrderInterface | undefined = listOrders?.find((item: OrderInterface) => item.id === id);
+    dispatch(onChangeCurrentOrder({ currentOrder: getOrder as OrderInterface }));
+    dispatch(setIsActiveTrue());
   };
 
   return (
-    <>
-    <Header />
+    <React.Fragment>
+      <Header fetch={fetch} />
       {/* Orders for Desktop */}
       <div className="hidden md:block">
         {
-          !isActive ?
+          !isActive && filteredOrders && filteredOrders.length > 0 &&
             <table className={`mt-20 w-full ${style.containerTable}`}>
               <thead className="bg-gray-50">
                 <tr>
@@ -57,7 +72,7 @@ const OrderView = () => {
                 </tr>
               </thead>
               <tbody>
-                {arrayOrders?.map((item, i) => (
+                {filteredOrders?.map((item, i) => (
                   <tr key={i} className={`${style.trBodyStyle}`}>
                     <td>
                       <input type="checkbox" className={`${style.checkboxStyle}`} />
@@ -68,10 +83,19 @@ const OrderView = () => {
                         <p>{item.id}</p>
                       </div>
                     </td>
-                    <td>{item.date && new Date(item.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric', year: 'numeric' }).replace(/\./g, '/')}</td>
-                    <td>{item.branch}</td>
-                    <td>{item.status}</td>
-                    <td>1000</td>
+                    <td>{item.date}</td>
+                    <td>{item.branch}
+                    </td>
+                    <td className={`${item.status === "בוצע" ? 'text-green-600' :
+                      item.status === "ממתין לאישור" ? 'text-yellow-500' :
+                        item.status === "מאושר" ? 'text-blue-600' :
+                          ''
+                      }`}>
+                      {item.status}
+                    </td>
+                    <td>
+                    ₪1000
+                      </td>
                     <td>
                       <button onClick={() => handleOrderClick(item.id)}>
                         <svg className={`h-10 w-8 ${style.iconClickTable}`} viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round">
@@ -84,13 +108,25 @@ const OrderView = () => {
                 ))}
               </tbody>
             </table>
-            :
-            <ShowOrderDesktop/>
+        }
+
+        {
+          !isActive && filteredOrders?.length == 0 &&
+          <h1>אין תוצאות</h1>
+        }
+        {
+          isActive && listOrders &&
+          <ShowOrderDesktop fetch={fetch} />
+        }
+
+        {
+          listOrders.length === 0 &&
+          <h1>orders is empty...</h1>
         }
       </div>
-        {/* Orders for Mobile */}
-        <ShowOrderMobile/>
-    </>
+      {/* Orders for Mobile */}
+      <ShowOrderMobile />
+    </React.Fragment>
   );
 };
 

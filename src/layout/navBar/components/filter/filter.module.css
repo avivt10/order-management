@@ -1,9 +1,0 @@
-.filterNameStyle{
-  color: rgb(196, 196, 196);
-}
-
-@media only screen and (max-width: 800px) {
-  .containerFilter {
-    display:none;
-  }
-}
