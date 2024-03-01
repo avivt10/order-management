@@ -3,6 +3,7 @@ import { OrderInterface } from "../../views/ordersView/interface/order";
 
 interface orderModel {
   currentOrder: OrderInterface;
+  isActive?: boolean;
 }
 
 const initialState: orderModel = {
@@ -25,6 +26,7 @@ const initialState: orderModel = {
     source: "",
     branch: "",
   },
+  isActive: false,
 };
 
 const orderSlice = createSlice({
@@ -35,8 +37,22 @@ const orderSlice = createSlice({
     onChangeCurrentOrder: (state, action: PayloadAction<orderModel>) => {
       state.currentOrder = action.payload.currentOrder;
     },
+    onRemoveCurrentOrder: (state) => {
+      state.currentOrder = { ...initialState.currentOrder };
+    },
+    setIsActiveTrue: (state) => {
+      state.isActive = true;
+    },
+    setIsActiveFalse: (state) => {
+      state.isActive = false;
+    },
   },
 });
 
-export const { onChangeCurrentOrder } = orderSlice.actions;
+export const {
+  onChangeCurrentOrder,
+  setIsActiveTrue,
+  setIsActiveFalse,
+  onRemoveCurrentOrder,
+} = orderSlice.actions;
 export default orderSlice.reducer;

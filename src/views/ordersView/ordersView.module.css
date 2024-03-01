@@ -22,11 +22,10 @@ th {
   height: 18px;
 }
 
-.containerAddOrderCard{
+.containerAddOrderCard {
   background-color: aqua;
   height: 800px;
   width: 1000px;
-  left:200px;
+  left: 200px;
   position: absolute;
-
 }
