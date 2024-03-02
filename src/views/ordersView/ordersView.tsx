@@ -8,6 +8,7 @@ import { OrderInterface } from "./interface/order";
 import style from "./ordersView.module.css";
 import ShowOrderDesktop from "./components/showOrder/desktop/showOrderDesktop";
 import ShowOrderMobile from "./components/showOrder/mobile/showOrderMobile";
+import { getServerUrl } from "../../utils/functions/getServerUrl";
 
 const OrderView = () => {
   const dispatch = useAppDispatch();
@@ -30,16 +31,16 @@ const OrderView = () => {
   };
 
   useEffect(() => {
-    if (listOrders.length === 0) {
+    if (listOrders !== undefined && listOrders.length === 0) {
       fetch();
       setFilteredOrders(listOrders)
     }
     setFilteredOrders(listOrders)
-  }, [listOrders.length]);
+  }, [listOrders]);
 
   const fetch = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/api/orders/getOrders");
+      const {data} = await axios.get(`${getServerUrl()}/api/orders/getOrders`);
       dispatch(setListOrders({ listOrders: data.arrayOrders }));
     } catch (err) {
       console.log(err);
@@ -120,7 +121,7 @@ const OrderView = () => {
         }
 
         {
-          listOrders.length === 0 &&
+          listOrders !== undefined && listOrders.length === 0 &&
           <h1>orders is empty...</h1>
         }
       </div>
