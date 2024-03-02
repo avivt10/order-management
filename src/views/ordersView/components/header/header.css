@@ -1,0 +1,24 @@
+    
+    .py-4 {
+      justify-content: center;
+  }
+  .grid {
+      width: 50%;
+  }
+  .text-gray-500 {
+      display: flex;
+      justify-content: center;
+  }
+  .text-gray-900 {
+      text-align: right;
+  }
+  .title {
+      text-align: center;
+      font-size: larger;
+  }
+  .text-gray-950 {
+      background: #b0e6d2a6;
+  }
+  .p-8 {
+      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  }

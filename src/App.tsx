@@ -1,10 +1,12 @@
-import './App.css'
-import Layout from './layout/layout'
+import './App.css';
+import OrdersView from './views/ordersView/ordersView';
 
 function App() {
 
   return (
-    <Layout />
+    <div dir='rtl'>
+     <OrdersView />
+  </div>
   )
 }
 
