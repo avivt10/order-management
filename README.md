@@ -1,4 +1,4 @@
-# Orders Management - clinet
+# Orders Management - client
 
 Web application for order management.
 
