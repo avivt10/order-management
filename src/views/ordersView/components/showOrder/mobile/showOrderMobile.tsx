@@ -15,7 +15,7 @@ const ShowOrderMobile = () => {
   return (
     <div className="block md:hidden lg:hidden">
       {
-        listOrders.length > 0 ?
+        listOrders !== undefined && listOrders.length > 0 ?
           listOrders?.map((item, i) => (
             <div key={i} className="border border-gray-300 mb-3">
               {/* header */}
