@@ -2,6 +2,7 @@ import { useState } from 'react';
 import HeaderFilters from './headerFilters/headerFilters';
 import axios from 'axios';
 import "./header.css"
+import { getServerUrl } from '../../../../utils/functions/getServerUrl';
 interface headerProps{
   fetch: () => Promise<void>;
 }
@@ -19,7 +20,7 @@ const Header = ({fetch} : headerProps)  => {
       typeOrder: typeOrder
     }
     try {
-      await axios.post("http://localhost:3000/api/orders/createOrder", { data })
+      await axios.post(`${getServerUrl()}/api/orders/createOrder`, { data })
       fetch()
       alert("הזמנה נוספה בהצלחה")
       setOpenModal(false)

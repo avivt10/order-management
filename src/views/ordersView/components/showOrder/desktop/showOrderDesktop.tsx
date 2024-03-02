@@ -4,6 +4,7 @@ import { OrderInterface } from "../../../interface/order";
 import { onChangeCurrentOrder, onRemoveCurrentOrder, setIsActiveFalse } from "../../../../../redux/features/orderSlice";
 import DetailOrderDesktop from "../../detailOrder/detailOrderDesktop/detailOrderDesktop";
 import axios from "axios";
+import { getServerUrl } from "../../../../../utils/functions/getServerUrl";
 interface headerProps {
   fetch: () => Promise<void>;
 }
@@ -26,7 +27,7 @@ const ShowOrderDesktop = ({fetch,} : headerProps) => {
 
   const deleteOrder = async(id: number) => {
     try{
-        await axios.delete(`http://localhost:3000/api/orders/deleteOrder`,{ data: { id } })
+        await axios.delete(`${getServerUrl()}/api/orders/deleteOrder`,{ data: { id } })
         alert("Order deleted successfully");
         fetch()
         dispatch(setIsActiveFalse());
