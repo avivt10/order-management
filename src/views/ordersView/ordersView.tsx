@@ -41,11 +41,6 @@ const OrderView = () => {
   const fetch = async () => {
     try {
       const {data} = await axios.get(`${getServerUrl()}/api/orders/getOrders`);
-  }, [listOrders.length]);
-
-  const fetch = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:3000/api/orders/getOrders");
       dispatch(setListOrders({ listOrders: data.arrayOrders }));
     } catch (err) {
       console.log(err);
