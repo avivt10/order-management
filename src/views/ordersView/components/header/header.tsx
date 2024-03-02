@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import HeaderFilters from './headerFilters/headerFilters';
-import { Button } from 'flowbite-react';
 import axios from 'axios';
 import "./header.css"
 interface headerProps{
@@ -36,9 +35,9 @@ const Header = ({fetch} : headerProps)  => {
           <HeaderFilters />
           {/* add new order */}
           <div className='w-1/2'>
-            <Button data-modal-target="default-modal" data-modal-toggle="default-modal" className='bg-green-400 hover:bg-green-700 text-white font-semibold py-2.5 px-4 float-end' onClick={() => setOpenModal(true)}>
+            <button className='bg-green-400 hover:bg-green-700 text-white font-semibold py-2.5 px-4 float-end' onClick={() => setOpenModal(true)}>
               הוספת הזמנה +
-            </Button>
+            </button>
           </div>
         </div>
       </div>
